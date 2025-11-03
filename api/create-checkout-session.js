@@ -8,37 +8,28 @@ export default async function handler(req, res) {
   }
 
   try {
-    const siteUrl = process.env.SITE_URL || "http://localhost:3000";
-    const { email } = req.body;
-
-    console.log("🧾 Création de session pour :", email);
-
     const session = await stripe.checkout.sessions.create({
       payment_method_types: ["card"],
-      customer_email: email,
+      mode: "payment",
       line_items: [
         {
           price_data: {
             currency: "eur",
             product_data: {
-              name: "Bot de trading (test 1€)",
-              description: "Achat test MetaBotSafe",
+              name: "Achat test MetaBotSafe",
             },
-            unit_amount: 100, // 1€
+            unit_amount: 100, // 1€ en centimes
           },
           quantity: 1,
         },
       ],
-      mode: "payment",
-      success_url: `${siteUrl}/success.html`,
-      cancel_url: `${siteUrl}/cancel.html`,
+      success_url: `${process.env.SITE_URL}/success.html`,
+      cancel_url: `${process.env.SITE_URL}/cancel.html`,
     });
 
-    console.log("✅ Session Stripe créée :", session.id);
-
-    return res.status(200).json({ id: session.id });
-  } catch (error) {
-    console.error("❌ Erreur Stripe :", error.message);
-    return res.status(500).json({ error: error.message });
+    return res.status(200).json({ url: session.url });
+  } catch (err) {
+    console.error("Erreur Stripe :", err);
+    return res.status(500).json({ error: err.message });
   }
 }
