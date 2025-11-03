@@ -1,125 +1,241 @@
-
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="alternate" hreflang="fr" href="https://metabotsafe.netlify.app/" />
-    <link rel="alternate" hreflang="en-us" href="https://metabotsafe.netlify.app/" />
-    <link rel="alternate" hreflang="en-gb" href="https://metabotsafe.netlify.app/" />
-    <link rel="alternate" hreflang="es" href="https://metabotsafe.netlify.app/" />
-    <link rel="alternate" hreflang="de" href="https://metabotsafe.netlify.app/" />
-    <link rel="alternate" hreflang="it" href="https://metabotsafe.netlify.app/" />
-    <link rel="alternate" hreflang="pt" href="https://metabotsafe.netlify.app/" />
-    <meta name="description" content="Achetez des bots de trading fiables et performants pour le forex et les prop firms. Test Stripe 1€, accès immédiat." />
-    <meta name="keywords" content="bot de trading, robot forex, achat bot, trading bot, comprar robot trading, buy fo" />
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>MetaBotSafe — Achat test</title>
 
-  <title>MetaBotSafe</title>
-  <link rel="stylesheet" href="assets/style.css">
-  <script src="assets/script.js"></script>
-  <script src="assets/protect.js"></script>
+  <!-- SEO & international -->
+  <link rel="alternate" hreflang="fr" href="https://metabotsafe.vercel.app/" />
+  <link rel="alternate" hreflang="en-us" href="https://metabotsafe.vercel.app/" />
+  <link rel="alternate" hreflang="en-gb" href="https://metabotsafe.vercel.app/" />
+  <link rel="alternate" hreflang="es" href="https://metabotsafe.vercel.app/" />
+  <link rel="alternate" hreflang="de" href="https://metabotsafe.vercel.app/" />
+  <link rel="alternate" hreflang="it" href="https://metabotsafe.vercel.app/" />
+  <link rel="alternate" hreflang="pt" href="https://metabotsafe.vercel.app/" />
+  <meta name="description" content="Achetez des bots de trading fiables et performants pour le forex et les prop firms. Test Stripe 1€, accès immédiat." />
+  <meta name="keywords" content="bot de trading, robot forex, achat bot, trading bot, comprar robot trading, buy trading bot" />
+
+  <style>
+    :root {
+      --bg: #0a1320;
+      --card: #0f1b2e;
+      --text: #e8f1ff;
+      --muted: #a9b7d0;
+      --accent: #43d39e;
+      --primary: #4ea1ff;
+      --danger: #ff6b6b;
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, "Apple Color Emoji","Segoe UI Emoji";
+      background: radial-gradient(1200px 600px at 20% -10%, #12243e, transparent),
+                  radial-gradient(1200px 600px at 100% 10%, #071325, transparent),
+                  var(--bg);
+      color: var(--text);
+      min-height: 100vh;
+    }
+    header {
+      padding: 24px 20px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .logo { font-weight: 700; letter-spacing: 0.3px; }
+    .container {
+      max-width: 980px;
+      margin: 0 auto;
+      padding: 24px 20px 120px;
+    }
+    .hero {
+      background: linear-gradient(180deg, rgba(78,161,255,0.08), rgba(67,211,158,0.08));
+      border: 1px solid rgba(255,255,255,0.08);
+      border-radius: 18px;
+      padding: 28px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.25);
+    }
+    h1 { margin: 0 0 10px; font-size: 28px; }
+    p.lead { margin: 0; color: var(--muted); }
+    .pay-card {
+      margin-top: 22px;
+      background: var(--card);
+      border: 1px solid rgba(255,255,255,0.08);
+      border-radius: 18px;
+      padding: 18px;
+      display: grid;
+      grid-template-columns: 1fr 220px;
+      gap: 14px;
+    }
+    .field { display: grid; gap: 8px; }
+    label { font-size: 14px; color: var(--muted); }
+    input[type="email"] {
+      width: 100%;
+      padding: 12px 14px;
+      border-radius: 10px;
+      border: 1px solid rgba(255,255,255,0.15);
+      background: rgba(255,255,255,0.06);
+      color: var(--text);
+      outline: none;
+    }
+    .price {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-direction: column;
+      background: rgba(78,161,255,0.06);
+      border: 1px dashed rgba(255,255,255,0.15);
+      border-radius: 14px;
+      padding: 12px;
+      text-align: center;
+      min-height: 72px;
+    }
+    .price strong { font-size: 22px; }
+    .fixed-pay {
+      position: fixed;
+      right: 18px;
+      bottom: 18px;
+      display: flex;
+      gap: 10px;
+      align-items: center;
+      background: linear-gradient(135deg, #4ea1ff, #43d39e);
+      color: #071325;
+      font-weight: 700;
+      padding: 12px 16px;
+      border-radius: 999px;
+      box-shadow: 0 10px 22px rgba(0,0,0,0.35);
+      cursor: pointer;
+      border: none;
+    }
+    .fixed-pay:disabled {
+      filter: grayscale(0.4);
+      opacity: 0.7;
+      cursor: not-allowed;
+    }
+    .status {
+      margin-top: 12px;
+      font-size: 14px;
+      color: var(--muted);
+      min-height: 20px;
+    }
+    .translate-wrap {
+      position: fixed;
+      left: 10px;
+      bottom: 12px;
+      z-index: 10;
+      background: rgba(15,27,46,0.7);
+      padding: 6px 8px;
+      border-radius: 8px;
+      border: 1px solid rgba(255,255,255,0.08);
+    }
+    .small {
+      font-size: 12px; color: var(--muted);
+    }
+    @media (max-width: 700px) {
+      .pay-card { grid-template-columns: 1fr; }
+    }
+  </style>
 </head>
 <body>
-<header class="site-header">
-  <div class="logo"><a href="index.html">MetaBotSafe</a></div>
-  <nav class="main-nav">
-    <ul>
-      <li class="nav-item nav-active"><a href="index.html">🏠 Accueil</a></li>
-      <li class="nav-item"><a href="eurusd.html">💶 EURUSD</a>
-        <div class="dropdown-menu">
-          <div class="dropdown-item"><a href="eurusd_h1_list.html">H1</a></div>
-          <div class="dropdown-item"><a href="eurusd_h4_list.html">H4</a></div>
-          <div class="dropdown-item"><a href="eurusd_m15_list.html">M15</a></div>
-          <div class="dropdown-item"><a href="eurusd_m5_list.html">M5</a></div>
-          <div class="dropdown-item"><a href="eurusd_pack_securite.html">Pack sécurité</a></div>
-          <div class="dropdown-item"><a href="eurusd_pack_performance.html">Pack performance</a></div>
-          <div class="dropdown-item"><a href="mix_pack_securite.html">Pack mixte sécurité</a></div>
-          <div class="dropdown-item"><a href="mix_pack_performance.html">Pack mixte performance</a></div>
-        </div>
-      </li>
-      <li class="nav-item"><a href="xauusd.html">🥇 XAUUSD</a>
-        <div class="dropdown-menu">
-          <div class="dropdown-item"><a href="xauusd_h1_list.html">H1</a></div>
-          <div class="dropdown-item"><a href="xauusd_h4_list.html">H4</a></div>
-          <div class="dropdown-item"><a href="xauusd_m15_list.html">M15</a></div>
-          <div class="dropdown-item"><a href="xauusd_pack_securite.html">Pack sécurité</a></div>
-          <div class="dropdown-item"><a href="xauusd_pack_performance.html">Pack performance</a></div>
-        </div>
-      </li>
-      <li class="nav-item"><a href="propfirm.html">🏢 Prop Firm</a>
-        <div class="dropdown-menu">
-          <div class="dropdown-item"><a href="propfirm_5_percenters.html">5 %ers</a></div>
-          <div class="dropdown-item"><a href="propfirm_ftmo.html">FTMO</a></div>
-          <div class="dropdown-item"><a href="propfirm_my_forex_funds.html">My Forex Funds</a></div>
-        </div>
-      </li>
-      <li class="nav-item"><a href="code.html">📜 Codes complets</a></li>
-      <li class="nav-item"><a href="faq.html">📋 FAQ</a></li>
-      <li class="nav-item"><a href="account.html">👤 Mon compte</a></li>
-      <li class="nav-item"><a href="cart.html">🛒 Panier</a></li>
-    </ul>
-  </nav>
-  
-</header>
-<main>
-  <section class="hero">
-    <h1>Des bots de trading fiables et durables</h1>
-    <p>Nous concevons des robots basés sur des modèles mathématiques et probabilistes afin d’offrir des performances régulières sur le long terme.</p>
-  </section>
-  <section class="top-section">
-    <h2>Top 3 des bots</h2>
-    <div class="top-grid"><div class="bot-card small highlight"><h3>EURUSD M5 — Classique</h3><p class="meta">Classique</p><p class="tagline">Performances élevées</p><p class="description">Les tests ont montré un ROI de 93.2%/an et un Sharpe de 2.37, gage de fiabilité.</p><a class="btn" href="eurusd_m5_list.html">Voir les bots</a></div>
-<div class="bot-card small highlight"><h3>EURUSD M5 — Classique</h3><p class="meta">Classique</p><p class="tagline">Performances élevées</p><p class="description">Les tests ont montré un ROI de 91.2%/an et un Sharpe de 2.90, gage de fiabilité.</p><a class="btn" href="eurusd_m5_list.html">Voir les bots</a></div>
-<div class="bot-card small highlight"><h3>EURUSD M5 — Volatilité</h3><p class="meta">Classique</p><p class="tagline">Performances élevées</p><p class="description">Les tests ont montré un ROI de 91.0%/an et un Sharpe de 2.83, gage de fiabilité.</p><a class="btn" href="eurusd_m5_list.html">Voir les bots</a></div></div>
-  </section>
-  <section class="categories">
-    <h2>Nos catégories</h2>
-    <div class="category-grid">
-      <a href="eurusd.html" class="category-card">
-        <h3>💶 EURUSD</h3>
-        <p>Choisissez votre horizon (M5, M15, H1, H4) ou un pack sur mesure.</p>
-      </a>
-      <a href="xauusd.html" class="category-card">
-        <h3>🥇 XAUUSD</h3>
-        <p>Choisissez votre horizon (M15, H1, H4) ou un pack sur mesure.</p>
-      </a>
-    </div>
-  </section>
-  <section class="in-dev improved-dev">
-    <h2>En développement</h2>
-    <p>Notre feuille de route inclut l’étude et l’optimisation de nouvelles paires :</p>
-    <ul>
-      <li><strong>GBPUSD</strong> – tests en cours sur les unités M15 et H1</li>
-      <li><strong>USDCAD</strong> – modèles à l’étude pour un lancement prochain</li>
-      <li><strong>BTCUSD</strong> – exploration en environnement crypto avec risque maîtrisé</li>
-    </ul>
-    <p>Restez connectés : ces bots seront disponibles prochainement.</p>
-  </section>
-  <!-- Advice section encouraging diversification -->
-  <section class="advice">
-    <h2>Conseils pour bien investir</h2>
-    <ul>
-      <li>Diversifiez vos horizons de temps (M5, M15, H1, H4) pour lisser les performances.</li>
-      <li>Combinez plusieurs bots pour profiter à la fois de la sécurité et du rendement.</li>
-      <li>Nos packs « sécurité » et « performance » sont conçus pour vous aider à choisir.</li>
-    </ul>
-  </section>
-  <section class="faq-home">
-    <h2>FAQ</h2>
-    <details><summary>Pourquoi avoir choisi MetaTrader 5 ?</summary><p>MetaTrader 5 est une plate‑forme robuste et reconnue, idéale pour faire tourner des robots. Elle n’impose pas de frais cachés, permet de retirer vos gains rapidement et offre un environnement fiable pour nos stratégies.</p></details>
-<details><summary>Quelle est la différence entre la version Classique et Prop Firm ?</summary><p>Les versions <em>Prop Firm</em> respectent les règles strictes des sociétés de financement comme FTMO, les 5 %ers ou My Forex Funds : drawdown limité, levier autorisé, respect du capital. La version Classique est conçue pour un compte personnel standard.</p></details>
-<details><summary>Que reçois‑je après mon achat ?</summary><p>Vous obtenez un fichier <strong>.ex5</strong> prêt à être utilisé dans MetaTrader 5, ainsi qu’un guide PDF expliquant l’installation. Le code source reste protégé afin de préserver notre propriété intellectuelle.</p></details>
-<details><summary>Proposez‑vous un robot qui regroupe tous les styles de gestion du risque ?</summary><p>Oui ! Nos packs complets incluent toutes les variantes de money management pour un timeframe donné. Un menu dans le bot vous permettra de choisir Classique, Dynamique, Progressif ou Volatilité selon votre profil.</p></details>
-<details><summary>Comment puis‑je payer ?</summary><p>Le paiement se fait par carte via Stripe (mode test 1 €). Vous serez redirigé vers un formulaire sécurisé. Après votre commande et votre paiement, un e‑mail avec un lien pour télécharger le guide PDF vous sera envoyé. En mode test, utilisez la carte 4242 4242 4242 4242 et une date d’expiration future.</p></details>
-<details><summary>Les performances sont‑elles garanties ?</summary><p>Non, aucune stratégie ne peut garantir un résultat futur. Toutefois, nos robots reposent sur des lois de probabilité et une analyse statistique sérieuse, et sont testés sur plusieurs années. C’est cette rigueur qui nous permet d’afficher des chiffres solides et de limiter l’impact des aléas du marché.</p></details>
-  </section>
-  <section class="lexicon"><h2>Lexique</h2><ul><li><strong>ROI</strong> (Return on Investment) : rendement total en pourcentage du capital initial.</li><li><strong>Ratio de Sharpe</strong> : rentabilité ajustée du risque ; plus il est élevé, plus les gains sont réguliers.</li><li><strong>Facteur de profit</strong> : rapport entre la somme des gains et des pertes (>&nbsp;1 signifie rentabilité).</li><li><strong>Drawdown</strong> : plus forte baisse du capital au cours du test.</li></ul></section>
-</main>
-<footer class="site-footer">© 2025 MetaBotSafe — Tous droits réservés<br>Le trading comporte des risques : les performances passées ne garantissent pas les performances futures.<br>Nous développons aussi d’autres bots pour de nouvelles paires forex, métaux et crypto.</footer>
+  <header>
+    <div class="logo">MetaBotSafe</div>
+    <div class="small">Paiement test 1 €</div>
+  </header>
 
-<button onclick="startCheckout('Test Product')" style="position:fixed;right:16px;bottom:16px;z-index:9999" class="btn">Acheter à 1€ (test)</button>
+  <main class="container">
+    <section class="hero">
+      <h1>Accédez à nos bots de trading</h1>
+      <p class="lead">Processus de paiement sécurisé via Stripe — e-mail requis pour l’envoi des accès.</p>
 
-  <script src="assets/translate-widget.js"></script>
+      <div class="pay-card">
+        <div class="field">
+          <label for="email">Adresse e-mail</label>
+          <input id="email" type="email" placeholder="votre@email.com" autocomplete="email" />
+          <div class="status" id="status"></div>
+        </div>
+        <div class="price">
+          <div>Achat test</div>
+          <strong>1,00 €</strong>
+          <div class="small">via Stripe Checkout</div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- Bouton fixé bas-droite -->
+  <button id="pay-button" class="fixed-pay" title="Payer 1 €">
+    💳 Payer 1 €
+  </button>
+
+  <!-- Google Translate widget -->
+  <div class="translate-wrap">
+    <div id="google_translate_element"></div>
+  </div>
+  <script type="text/javascript">
+    function googleTranslateElementInit() {
+      new google.translate.TranslateElement({pageLanguage: 'fr', includedLanguages: 'en,fr,es,de,it,pt'}, 'google_translate_element');
+    }
+  </script>
+  <script src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
+
+  <!-- GoatCounter (statistiques invisibles) -->
   <script data-goatcounter="https://metabotsafe.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
+
+  <script>
+    const $ = (sel) => document.querySelector(sel);
+    const btn = $("#pay-button");
+    const statusEl = $("#status");
+    const emailEl = $("#email");
+
+    function setStatus(msg) {
+      statusEl.textContent = msg || "";
+    }
+
+    btn.addEventListener("click", async () => {
+      const email = (emailEl.value || "").trim();
+      if (!email) {
+        setStatus("⚠️ Merci d’entrer une adresse e-mail.");
+        emailEl.focus();
+        return;
+      }
+
+      btn.disabled = true;
+      setStatus("Création de la session Stripe…");
+
+      try {
+        const resp = await fetch("/api/create-checkout-session", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ email, price: 1 })
+        });
+
+        if (!resp.ok) {
+          const txt = await resp.text();
+          console.error("HTTP error:", resp.status, txt);
+          setStatus("Erreur de création de paiement. Réessayez.");
+          btn.disabled = false;
+          return;
+        }
+
+        const data = await resp.json();
+        if (data.url) {
+          // Redirection directe vers Stripe Checkout
+          window.location.href = data.url;
+        } else if (data.id) {
+          // Fallback si seulement un id est renvoyé (peu probable avec notre endpoint)
+          setStatus("Session créée. Redirection Stripe…");
+          window.location.href = `https://checkout.stripe.com/pay/${data.id}`;
+        } else {
+          setStatus("Réponse inattendue du serveur.");
+          console.error("Unexpected:", data);
+          btn.disabled = false;
+        }
+      } catch (err) {
+        console.error(err);
+        setStatus("Erreur réseau. Vérifiez votre connexion puis réessayez.");
+        btn.disabled = false;
+      }
+    });
+  </script>
 </body>
 </html>
