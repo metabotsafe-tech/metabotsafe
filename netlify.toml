@@ -1,0 +1,10 @@
+[build]
+  functions = "netlify/functions"
+  publish = "."
+
+[functions]
+  # Use esbuild for bundling Netlify functions so that modern ECMAScript syntax
+  # and dependencies are handled automatically. This also ensures that
+  # environment variables (e.g. STRIPE_SECRET_KEY, SENDGRID_API_KEY) are
+  # accessible within the deployed serverless functions.
+  node_bundler = "esbuild"

@@ -1,0 +1,86 @@
+%PDF-1.4
+1 0 obj
+<< /Type /Catalog /Pages 2 0 R >>
+endobj
+2 0 obj
+<< /Type /Pages /Kids [3 0 R] /Count 1 >>
+endobj
+3 0 obj
+<< /Type /Page /Parent 2 0 R /MediaBox [0 0 595 842] /Contents 4 0 R /Resources << /Font << /F1 5 0 R >> >> >>
+endobj
+4 0 obj
+<< /Length 2424 >>
+stream
+BT
+/F1 12 Tf
+72 780 Td
+(Guide de deploiement MetaBotSafe) Tj
+0 -14 Td
+() Tj
+0 -14 Td
+(Deployer sur Netlify) Tj
+0 -14 Td
+(1. Creez un compte Netlify ou connectez-vous a votre compte existant.) Tj
+0 -14 Td
+(2. Dans le tableau de bord Netlify, choisissez "Add new site" puis "Deploy manually".) Tj
+0 -14 Td
+(3. Glissez-deposez l'archive metabotsafe-final.zip dans la zone de depot. Netlify prepare automatiquement le deploiement.) Tj
+0 -14 Td
+(4. Une fois le deploiement termine, accedez a l'URL generee par Netlify pour tester votre site.) Tj
+0 -14 Td
+() Tj
+0 -14 Td
+(Configurer les variables d'environnement) Tj
+0 -14 Td
+(Dans Netlify, ouvrez les parametres du site \(Site settings\) puis rendez-vous dans la section "Build & Deploy" > "Environment". Ajoutez les variables suivantes :) Tj
+0 -14 Td
+(STRIPE_SECRET_KEY : votre cle secrete Stripe \(mode test\).) Tj
+0 -14 Td
+(STRIPE_WEBHOOK_SECRET : le secret du Webhook Stripe \(obtenu lors de la creation du point d'ecoute\).) Tj
+0 -14 Td
+(SENDGRID_API_KEY : votre cle API SendGrid.) Tj
+0 -14 Td
+(SELLER_EMAIL : l'adresse du vendeur \(metabotsafe@gmail.com par defaut\).) Tj
+0 -14 Td
+(SITE_URL : l'URL de votre site Netlify, par exemple https://mon-site.netlify.app.) Tj
+0 -14 Td
+(Enregistrez les modifications avant de relancer le deploiement.) Tj
+0 -14 Td
+() Tj
+0 -14 Td
+(Tester le paiement Stripe) Tj
+0 -14 Td
+(Pour verifier le paiement, cliquez sur un bouton "Acheter" sur le site. Vous serez redirige vers le formulaire de paiement Stripe.) Tj
+0 -14 Td
+(En mode test, utilisez la carte 4242 4242 4242 4242, n'importe quelle date d'expiration future et un CVC au hasard \(par exemple 123\). Le montant est fixe a 1 EUR. Apres validation, Stripe vous ramennera sur la page "Paiement reussi".) Tj
+0 -14 Td
+() Tj
+0 -14 Td
+(Verifier les e-mails) Tj
+0 -14 Td
+(Suite au paiement, deux e-mails sont envoyes via SendGrid : un au client contenant un lien vers ce guide PDF et un recapitulatif de la commande, et un au vendeur \(SELLER_EMAIL\) recapitulant la vente. Verifiez votre boite de reception et vos spams pour confirmer la bonne reception.) Tj
+0 -14 Td
+() Tj
+0 -14 Td
+(Passer le site en public) Tj
+0 -14 Td
+(Par defaut, un mot de passe protege l'acces au site. Pour retirer cette protection, supprimez ou commentez le script de protection situe dans le fichier assets/protect.js ou retirez son inclusion dans les pages. Deployez a nouveau pour rendre le site public.) Tj
+ET
+endstream
+endobj
+5 0 obj
+<< /Type /Font /Subtype /Type1 /BaseFont /Helvetica >>
+endobj
+xref
+0 6
+0000000000 65535 f 
+0000000009 00000 n 
+0000000058 00000 n 
+0000000115 00000 n 
+0000000241 00000 n 
+0000002717 00000 n 
+trailer
+<< /Root 1 0 R /Size 6 >>
+startxref
+2787
+%%EOF
