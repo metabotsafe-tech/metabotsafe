@@ -4,6 +4,7 @@
   "private": true,
   "dependencies": {
     "@sendgrid/mail": "^7.7.0",
-    "stripe": "^14.0.0"
+    "stripe": "^14.0.0",
+    "micro": "^9.4.1"
   }
 }
