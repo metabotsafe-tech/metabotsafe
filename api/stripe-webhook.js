@@ -1,66 +1,75 @@
-
 // /api/stripe-webhook.js
-import Stripe from 'stripe';
-import sgMail from '@sendgrid/mail';
+import { buffer } from "micro";
+import Stripe from "stripe";
+import { sendEmail } from "./sendMail.js";
 
 const stripe = new Stripe(process.env.STRIPE_SECRET_KEY);
-sgMail.setApiKey(process.env.SENDGRID_API_KEY);
 
 export const config = {
-  api: {
-    bodyParser: false,
-  },
+  api: { bodyParser: false },
 };
 
 export default async function handler(req, res) {
-  const buf = await new Promise((resolve, reject) => {
-    const chunks = [];
-    req.on('data', (chunk) => chunks.push(chunk));
-    req.on('end', () => resolve(Buffer.concat(chunks)));
-    req.on('error', (err) => reject(err));
-  });
+  if (req.method !== "POST") return res.status(405).end("Method Not Allowed");
 
-  const sig = req.headers['stripe-signature'];
-  const webhookSecret = process.env.STRIPE_WEBHOOK_SECRET;
+  const buf = await buffer(req);
+  const sig = req.headers["stripe-signature"];
 
   let event;
-
   try {
-    event = stripe.webhooks.constructEvent(buf, sig, webhookSecret);
+    event = stripe.webhooks.constructEvent(buf, sig, process.env.STRIPE_WEBHOOK_SECRET);
   } catch (err) {
-    console.error('❌ Erreur de vérification webhook:', err.message);
+    console.error("⚠️ Webhook signature error:", err.message);
     return res.status(400).send(`Webhook Error: ${err.message}`);
   }
 
-  if (event.type === 'checkout.session.completed') {
+  // === 1️⃣ Quand Stripe confirme le paiement ===
+  if (event.type === "checkout.session.completed") {
     const session = event.data.object;
-    const customerEmail = session.customer_details?.email;
-
-    console.log(`💰 Paiement validé : ${session.amount_total / 100} EUR par ${customerEmail}`);
 
     try {
-      // Envoi du mail client
-      await sgMail.send({
-        to: customerEmail,
-        from: process.env.EMAIL_FROM,
-        subject: 'Confirmation de votre achat MetaBotSafe ✅',
-        html: `<h3>Merci pour votre achat 🎉</h3>
-               <p>Votre paiement de <strong>1 €</strong> a bien été reçu.</p>
-               <p>Vous pouvez visiter notre site : <a href="${process.env.SITE_URL}">${process.env.SITE_URL}</a></p>`,
-      });
-      console.log('📩 Email client envoyé !');
+      // Informations du client
+      const customerEmail = session.customer_details?.email;
+      const amount = (session.amount_total / 100).toFixed(2);
+      const productName = session.metadata?.productName || "Bot inconnu";
 
-      // Envoi du mail vendeur
-      await sgMail.send({
-        to: process.env.SELLER_EMAIL,
-        from: process.env.EMAIL_FROM,
-        subject: 'Nouvelle vente MetaBotSafe 💰',
-        html: `<p>Un client vient d'effectuer un paiement de 1 €.</p>
-               <p>Email client : ${customerEmail}</p>`,
-      });
-      console.log('📩 Email vendeur envoyé !');
-    } catch (mailErr) {
-      console.error('❌ Erreur lors de l’envoi des e-mails :', mailErr);
+      // === 2️⃣ Email client ===
+      const htmlClient = `
+        <div style="font-family:sans-serif;line-height:1.5;color:#333">
+          <h2>🤖 Merci pour votre achat sur MetaBotSafe !</h2>
+          <p>Votre paiement de <strong>${amount} €</strong> pour le bot <strong>${productName}</strong> a bien été reçu.</p>
+          <p>Vous recevrez sous peu un e-mail séparé contenant votre guide et vos fichiers d’installation.</p>
+          <p>Merci pour votre confiance,<br>L’équipe MetaBotSafe</p>
+        </div>
+      `;
+
+      await sendEmail(
+        customerEmail,
+        `Confirmation de votre achat MetaBotSafe — ${productName}`,
+        htmlClient,
+        `Merci pour votre achat de ${productName} (${amount} €) sur MetaBotSafe !`
+      );
+
+      // === 3️⃣ Email admin ===
+      const htmlAdmin = `
+        <div style="font-family:sans-serif;line-height:1.5;color:#333">
+          <h2>🧾 Nouvelle vente !</h2>
+          <p><strong>${productName}</strong> vient d’être acheté pour <strong>${amount} €</strong>.</p>
+          <p>Client : ${customerEmail}</p>
+          <p>La somme sera transférée automatiquement sur votre compte Stripe/Bancaire.</p>
+        </div>
+      `;
+
+      await sendEmail(
+        "metabotsafe@gmail.com",
+        `🧾 Nouvelle vente : ${productName}`,
+        htmlAdmin,
+        `Le bot ${productName} a été vendu à ${customerEmail} pour ${amount} €`
+      );
+
+      console.log(`✅ E-mails envoyés pour ${productName} (${customerEmail})`);
+    } catch (err) {
+      console.error("Erreur lors de l'envoi des e-mails :", err);
     }
   }
 
