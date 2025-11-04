@@ -18,14 +18,12 @@ export default async function handler(req, res) {
       },
       subject: 'Test envoi depuis MetaBotSafe ✅',
       text: 'Bonjour Julien ! Ceci est un test d’envoi via SendGrid depuis ton site MetaBotSafe.',
-      html: `
-        <div style="font-family:Arial, sans-serif; color:#333">
-          <h2>Test réussi 🎉</h2>
-          <p>Ton intégration SendGrid fonctionne parfaitement !</p>
-          <p><strong>Depuis :</strong> metabotsafe.vercel.app</p>
-          <p>— L’équipe MetaBotSafe</p>
-        </div>
-      `,
+      html: `<div style="font-family:Arial, sans-serif; color:#333">
+               <h2>Test réussi 🎉</h2>
+               <p>Ton intégration SendGrid fonctionne parfaitement !</p>
+               <p><strong>Depuis :</strong> metabotsafe.vercel.app</p>
+               <p>— L’équipe MetaBotSafe</p>
+             </div>`,
     };
 
     await sgMail.send(msg);
