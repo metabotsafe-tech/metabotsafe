@@ -1,16 +1,7 @@
 // /api/test-email.js
-// Minimal SendGrid email test for Vercel (no external packages needed)
-//
-// ▶ How to use (after deploy):
-//   GET  https://YOUR_DOMAIN/api/test-email
-//   or POST (JSON): { "to": "someone@example.com", "from": "sender@example.com", "subject": "...", "text": "..." }
-//
-// It uses environment variables if present:
-//   - SENDGRID_API_KEY  (required)
-//   - EMAIL_FROM        (default sender if not provided in request)
-//   - SITE_URL          (optional, used in body)
+// Minimal SendGrid email test for Vercel
 
-module.exports = async (req, res) => {
+export default async function handler(req, res) {
   try {
     const apiKey = process.env.SENDGRID_API_KEY;
     if (!apiKey) {
@@ -51,13 +42,8 @@ module.exports = async (req, res) => {
       </div>
     `;
 
-    // Build SendGrid payload
     const payload = {
-      personalizations: [
-        {
-          to: [{ email: to }]
-        }
-      ],
+      personalizations: [{ to: [{ email: to }] }],
       from: { email: from, name: "MetaBotSafe" },
       subject,
       content: [
@@ -66,7 +52,6 @@ module.exports = async (req, res) => {
       ]
     };
 
-    // Call SendGrid API without external dependencies
     const resp = await fetch("https://api.sendgrid.com/v3/mail/send", {
       method: "POST",
       headers: {
@@ -90,4 +75,4 @@ module.exports = async (req, res) => {
   } catch (err) {
     return res.status(500).json({ ok: false, error: err?.message || String(err) });
   }
-};
+}
